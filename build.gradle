@@ -1,0 +1,103 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply from: 'http://tellurianring.com/projects/gradle-plugins/gradle-release/apply.groovy'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+buildscript {
+    repositories {
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+    dependencies {
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+    }
+}
+
+configure(allprojects) {
+    apply plugin: 'propdeps'
+    apply plugin: 'propdeps-maven'
+    apply plugin: 'propdeps-idea'
+    apply plugin: 'propdeps-eclipse'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    provided "org.jasig.cas:cas-server-core:$casVersion"
+    provided "org.springframework:spring-context:$springVersion"
+    testCompile "junit:junit:$junitVersion"
+}
+
+javadoc {
+    classpath = configurations.compile + configurations.provided
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = "javadoc"
+    from 'build/docs/javadoc'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = "sources"
+}
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.1"
+}
+
+
+createReleaseTag.dependsOn uploadArchives
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment)}
+            repository(url: 'https://api.bintray.com/maven/uniconiam/maven/cas-addon-external-config-services-registry-support') {
+                authentication(userName: bintrayUsername, password: bintrayAPIKey)
+            }
+            pom.project {
+                name 'CAS addon registered services commons'
+                packaging 'jar'
+                description "An Apereo CAS addon with foundational classes supporting external configuration facilities for services registries implementations."
+                url "https://github.com/unicon-cas-addons/cas-addon-external-config-services-registry-support"
+
+                scm {
+                    url 'scm:git@github.com:unicon-cas-addons/cas-addon-external-config-services-registry-support.git'
+                    connection 'scm:git@github.com:unicon-cas-addons/cas-addon-external-config-services-registry-support.git'
+                    developerConnection 'scm:git@github.com:unicon-cas-addons/cas-addon-external-config-services-registry-support.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'dima767'
+                        name 'Dmitriy Kopylenko'
+                    }
+                }
+            }
+        }
+    }
+}

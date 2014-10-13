@@ -1,0 +1,6 @@
+CAS Addon External Config Services Registry Support Changelog
+=============================================================
+
+Changes in version 1.0.0.RELEASE
+---------------------------------------------
+* Initial release
