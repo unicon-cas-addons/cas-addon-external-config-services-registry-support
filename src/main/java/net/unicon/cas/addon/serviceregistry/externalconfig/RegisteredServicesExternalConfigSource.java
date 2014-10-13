@@ -31,6 +31,7 @@ public class RegisteredServicesExternalConfigSource implements ApplicationListen
 
         this.servicesConfigSource = servicesConfigSource;
         this.servicesUnmarshaller = servicesUnmarshaller;
+        this.servicesUnmarshaller.unmarshalRegisteredServicesFrom(this.servicesConfigSource);
     }
 
     @Override
