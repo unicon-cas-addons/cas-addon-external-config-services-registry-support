@@ -3,7 +3,7 @@ package net.unicon.cas.addon.serviceregistry.externalconfig;
 /**
  * Strategy interface intended for behavior parametrization by external config service registries implementations
  * to unmarshal external config representations sourced from parametrized type <i>T</i> into
- * CAS' canonical {@link org.jasig.cas.services.RegisteredService} model state held internally by thos service registries
+ * CAS' canonical {@link org.jasig.cas.services.RegisteredService} model state held internally by those service registries
  * implementations.
  *
  * A common strategy is for service registry implementation to implement this interface.
