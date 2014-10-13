@@ -43,7 +43,7 @@ public class RegisteredServicesExternalConfigSource implements ApplicationListen
             }
         }
         catch (final Throwable e) {
-            logger.error("An exception is caught while trying to access JSON resource: ", e);
+            logger.error("An exception is caught while trying to access external registered services resource: ", e);
             return;
         }
         logger.debug("Received change event for external registered services resource {}. Reloading services...",
