@@ -40,7 +40,10 @@ public class RegisteredServicesExternalConfigSource implements ApplicationListen
         this.servicesConfigSource = servicesConfigSource;
         this.servicesUnmarshaller = servicesUnmarshaller;
         this.reloadableServicesManager = reloadableServicesManager;
+
+        /** Initial un-marshalling and loading into memory a set of services */
         this.servicesUnmarshaller.unmarshalRegisteredServicesFrom(this.servicesConfigSource);
+        this.reloadableServicesManager.reload();
     }
 
     @Override
