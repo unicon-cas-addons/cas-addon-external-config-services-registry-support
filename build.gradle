@@ -29,6 +29,7 @@ repositories {
 dependencies {
     provided "org.jasig.cas:cas-server-core:$casVersion"
     compile "net.unicon.cas:cas-addon-spring-resource-reloading-support:$casAddonResourceReloadingSupportVersion"
+    compile "net.unicon.cas:cas-addon-registered-services-commons:$casAddonRegisteredServicesCommonsVersion"
     provided "org.springframework:spring-context:$springVersion"
     testCompile "junit:junit:$junitVersion"
 }
