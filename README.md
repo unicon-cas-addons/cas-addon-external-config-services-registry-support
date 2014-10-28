@@ -6,7 +6,7 @@ include generic external config unmarshalling and generic Spring's application e
 and ensure that the registered services are then unmarshalled and reloaded into memory for use by other CAS components.
 
 ### Current version
-`1.0.0-RC2`
+`1.0.0-RC4`
 
 ### Supported CAS version
 The minimum supported CAS server version is `4.0.x`
