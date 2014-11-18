@@ -94,6 +94,7 @@ public abstract class AbstractExternalConfigLoadingServiceRegistry implements Se
      * @param externalServicesDefinitionSource the external resource holding a serialized representation of all the services.
      *
      * @return an un-marshalled representation of all the registered services or NULL if no services could be unmarshalled.
+     * @throws java.io.IOException
      */
-    protected abstract List<RegisteredService> doUnmarshal(Resource externalServicesDefinitionSource);
+    protected abstract List<RegisteredService> doUnmarshal(Resource externalServicesDefinitionSource) throws IOException;
 }
